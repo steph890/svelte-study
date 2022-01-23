@@ -1,0 +1,77 @@
+<script>
+	let count = 0;
+//	$: console.log(`count is ${count}`);
+//	function addCount(){
+//		count=count+1;
+//	}
+	
+$: console.log("1. 한 줄 구문: ",count);
+	
+$: {
+	count;
+	console.log("2. 코드 블록: count가 변경됨");
+}
+	
+$: if(count>0){
+	console.log("3. if 조건 : count가 0보다 크다");
+}	
+	
+$: for(let i =0;i<4;i++){
+	count;
+	console.log("4. for loop 안에 count 값 변경됨 for: ", i);
+}
+	
+function addCount(){
+	count=count+1;
+}	
+	
+</script>
+
+<button on:click={addCount}> Count is {count} </button>
+
+
+
+
+///////////////////////////////////////////
+
+
+<script>
+	let colors = ["red","Orange","Yellow","Green"];
+	
+	$: console.log("log.1: ", colors);
+	
+	function assignment(){
+		colors.pop();
+		colors=colors;
+		console.log("log.2: ", colors);
+	}
+
+</script>
+
+<p>	{colors.join(", ")} {colors.length} colors we have </p>
+
+<button on:click={assignment}> Assignment </button>
+
+////////////////////////////////////////////////
+
+
+
+<script>
+let man = {
+	age: "10",
+	name: {first : "승현", last : "박"}
+};
+
+let name = man.name
+
+function assignment(){
+	man.name.last = "park";
+	console.log(name.last);
+	name=name;
+}
+
+</script>
+
+<p>man.name.last: {man.name.last}</p>
+<p>name.last: {name.last}</p>
+<button on:click={assignment}> 할당 </button>

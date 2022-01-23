@@ -1,0 +1,145 @@
+<script>
+	let name = "world";
+	let size = 30;
+</script>
+
+
+
+<main>
+	<input type="range" bind:value={size} min=0 max=100><br/>
+	<input type="number" bind:value={size} min=0 max=100><br/>
+	<h1 style="font-size:{size}px;"> Hello {name}! </h1>
+	
+</main>
+
+//////////////
+
+<script>
+	let editable = false;;
+	let favorite = "SVELTE";
+</script>
+
+<main>
+	<input type=checkbox bind:checked={editable}> 수정하려면 체크하세요
+	{#if editable}
+		<p> 수정 모드 : <input bind:value={favorite}></p>
+	{:else}
+		<p> 보기 모드 : {favorite}</p>
+	{/if}
+
+</main>
+
+/////////////
+
+
+<script>
+	let where = "";
+	let menu = ["커피", "주스", "샌드위치", "김밥"];
+	let chosen = [];
+	let order = "";
+	$:order = chosen.length>0
+						? `<b>${chosen}</b> 메뉴를 <b>${where=="매장"?"매장식사를":"포장 주문을"}</b> 선택하셨습니다`
+						: "메뉴를 선택해주세요";
+</script>
+
+<main>
+	<h2> 포장 : {where}</h2>
+	<input type="radio" bind:group={where} value="포장"> 포장합니다.
+	<input type="radio" bind:group={where} value="매장"> 매장에서 먹을래요.
+
+	<h2> 메뉴 : {chosen} 	</h2>
+	{#each menu as item}
+	<label>
+		<input type="checkbox" bind:group={chosen} value={item}> {item}
+	</label>
+	{/each}	
+	
+	<p> {@html order} </p>
+</main>
+
+
+/////////////////////
+
+
+
+<script>
+	let where = "";
+	let menu = ["커피", "주스", "샌드위치", "김밥"];
+	let chosen = [];
+	let order = "";
+	$:order = chosen.length>0
+						? `<b>${chosen}</b> 메뉴를 <b>${where=="매장"?"매장식사를":"포장 주문을"}</b> 선택하셨습니다`
+						: "메뉴를 선택해주세요";
+</script>
+
+<main>
+	<h2> 포장 : {where}</h2>
+	<select bind:value={where}>
+		<option value="">선택하세요</option>
+		<option value="포장">포장합니다</option>
+		<option value="매장">매장에서 먹을래요</option>
+	</select>
+	
+	
+	<h2> 메뉴 : {chosen} 	</h2>
+	<select multiple bind:value={chosen}>
+	{#each menu as item}
+		<option value={item}> {item} </option>
+	{/each}	
+	</select>
+	
+	<p> {@html order} </p>
+</main>
+
+
+
+
+
+
+///////////////////
+
+<script>
+	let customers = [
+			{disable: false, email: "hong@mail.com", mailType: "Home", name: "홍길동", age: 25, grade: "gold"},
+			{disable: false, email: "kim@mail.com", mailType: "Office", name: "김길동", age: 39, grade: "silver"},
+			{disable: false, email: "lee@mail.com", mailType: "Home", name: "이길동", age: 35, grade: "normal"}
+	];
+
+</script>
+
+
+<table border=1>
+	<thead>
+		<th>탈퇴여부</th><th>이메일</th><th>메일 타입</th><th>이름</th><th>나이</th><th>등급</th>
+	</thead>
+	<tbody>
+		{#each customers as cust}
+		<tr>
+			<td><input type="checkbox" bind:checked={cust.disable}></td>
+			<td><input type="text" bind:value={cust.email} disabled={cust.disable}></td>
+			<td>[ 집: <input type="radio" bind:group={cust.mailType} value="Home" disabled={cust.disable}>|
+						회사: <input type="radio" bind:group={cust.mailType} value="Office" disabled={cust.disable}>]</td>
+			<td><input type="text" bind:value={cust.name} disabled={cust.disable}></td>
+			<td><input type="number" bind:value={cust.age} disabled={cust.disable}></td>
+			<td><select bind:value = {cust.grade}>
+				  <option value="gold">골드</option>
+			    <option value="silver">실버</option>
+			    <option value="normal">일반</option>
+				</select></td>			
+		</tr>
+		{/each}
+	</tbody>
+</table>
+
+<style>
+	table{
+		width : 100%;
+		border: 1px solid;
+		border-collapse: collapse;
+	}
+	th,td{
+		border: 1px solid;
+		padding: 10px;
+	}
+
+</style>

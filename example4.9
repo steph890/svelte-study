@@ -1,0 +1,26 @@
+<script>
+	import Component from "./Component.svelte";
+	let name = "world";
+</script>
+
+<input type=text bind:value={name}>
+
+{#key name}
+	<Component name={name}/>
+{/key}
+
+
+
+##Component.svelte
+
+<script>
+	import {afterUpdate, beforeUpdate, onDestroy, onMount} from "svelte";
+	onMount(()=> console.log("Component made"));
+	onDestroy(()=>console.log("Component removed"));
+	
+	export let name;
+</script>
+
+<p>
+	 hello {name}
+</p>

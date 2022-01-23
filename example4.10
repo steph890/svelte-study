@@ -1,0 +1,12 @@
+<script>
+	var post={
+		title : "The fastest svelte",
+		content: "<span style='color:red'>Svelte</span> is Very <b> FUNNY</b>"
+	}	
+	
+</script>
+
+<div>
+	<h1>{post.title}</h1>
+	{@html post.content}
+</div>

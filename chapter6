@@ -153,6 +153,15 @@
 	let volume = 0.5;
 	let muted = false;
 	let playbackRate = 1;
+	
+	function format(seconds){
+		if(isNaN(seconds))return "...";
+		let minutes = Math.floor(seconds / 60);
+		seconds = Math.floor(seconds % 60);
+		if (seconds < 10) seconds = '0'+seconds;
+		return `${minutes}:${seconds}`;
+	}
+	
 
 </script>
 
@@ -167,12 +176,13 @@
 </video>
 
 <div class="controller">
-	<input clasee ="progress" type=range bind:value={currentTime} min=0 max={duration} step0.001/>
+	<input class ="progress" type=range bind:value={currentTime} min=0 max={duration} step0.001/>
 	
 	<div class="time">
-		<span>{currentTime}</span>
-		<span>{duration}</span>
+		<span>{format(currentTime)}</span>
+		<span>{format(duration)}</span>
 	</div>
+	
 	<br/>
 	
 	<div class="controls">
@@ -197,3 +207,18 @@
 	</div>
 	
 </div>
+
+<style>
+	video, .controller, .progress, .controls {
+		width: 100%;
+	}
+	.time {
+		display: flex;
+		width: 100%;
+		justify-content: space-between;
+	}
+	
+	.controls>input {
+		vertical-align:middle;
+	}
+</style>

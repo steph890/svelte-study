@@ -1,7 +1,7 @@
 <script>
     export let choice="";
 
-    const list= [
+    export let list= [
         { code : "apple", desc : "사과"},
         { code : "kiwi", desc : "키위"},
         { code : "mango", desc : "망고"},
